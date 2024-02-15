@@ -22,6 +22,16 @@ function CountriesList() {
     navigate(-1); // Use the 'navigate' hook to go back to the previous view.
   };
 
+  // Function to handle the delete button click event.
+  const handleDelete = (countryToDelete: Country) => {
+    // Filter out the selected country from the current state.
+    const updatedCountries = countries.filter(
+      (country) => country !== countryToDelete
+    );
+    // Update the 'countries' state with the filtered data.
+    setCountries(updatedCountries);
+  };
+
   // Effect hook to fetch countries when the component mounts.
   useEffect(() => {
     // Define an asynchronous function to fetch countries.
@@ -63,6 +73,7 @@ function CountriesList() {
             <th>Country Name</th>
             <th>Capital</th>
             <th>Country Flag</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -72,6 +83,9 @@ function CountriesList() {
               <td>{country.name.common}</td>
               <td>{country.capital}</td>
               <td>{country.flag}</td>
+              <td>
+                <button onClick={() => handleDelete(country)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
